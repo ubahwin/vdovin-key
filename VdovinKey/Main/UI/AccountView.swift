@@ -2,7 +2,6 @@ import SwiftUI
 
 struct AccountView: View {
     @EnvironmentObject var coordinator: Coordinator
-    @AppStorage(Storage.isLoginnedKey) var isLoginned: Bool = false
     @ObservedObject var viewModel: MainViewModel
 
     var body: some View {
@@ -11,27 +10,27 @@ struct AccountView: View {
                 HStack {
                     Text("Username")
                     Spacer()
-                    Text("ubah")
+                    Text(viewModel.user.username)
                 }
                 HStack {
                     Text("First name")
                     Spacer()
-                    Text("Ivan")
+                    Text(viewModel.user.firstName)
                 }
                 HStack {
                     Text("Last name")
                     Spacer()
-                    Text("Vdovin")
+                    Text(viewModel.user.lastName)
                 }
                 HStack {
                     Text("Phone")
                     Spacer()
-                    Text("9803532589")
+                    Text(viewModel.user.phone)
                 }
                 HStack {
                     Text("e-mail")
                     Spacer()
-                    Text("ivan@city.com")
+                    Text(viewModel.user.email)
                 }
             }
 
@@ -39,7 +38,7 @@ struct AccountView: View {
                 HStack {
                     Spacer()
                     Button {
-                        isLoginned = false
+                        viewModel.isLoginned = false
                         coordinator.dismissCover()
                     } label: {
                         ZStack {
@@ -53,8 +52,8 @@ struct AccountView: View {
         }
     }
 }
-
-#Preview {
-    AccountView(viewModel: MainViewModel(coordinator: .init()))
-        .environmentObject(Coordinator())
-}
+//
+//#Preview {
+//    AccountView(viewModel: MainViewModel(coordinator: .init()))
+//        .environmentObject(Coordinator())
+//}

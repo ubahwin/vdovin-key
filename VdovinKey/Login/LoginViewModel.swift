@@ -23,12 +23,13 @@ final class LoginViewModel: ObservableObject {
 
             if response.success {
                 Storage.standard.saveNewSession(
-                    username: username,
                     password: password,
                     accessToken: response.accessToken,
                     refreshToken: response.refreshToken,
                     expiresAt: response.expiresAt
                 )
+
+                Storage.standard.saveNewUser(response.user.mapToModel)
 
                 await coordinator.popToRoot()
                 await coordinator.presentFull(.main)

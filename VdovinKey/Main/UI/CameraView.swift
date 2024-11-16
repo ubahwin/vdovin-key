@@ -8,7 +8,7 @@ struct CameraView: View {
     var body: some View {
         ZStack {
             #if targetEnvironment(simulator)
-            Color.gray
+            Color.blue
             #else
             CodeScannerView(codeTypes: [.qr]) { response in
                 switch response {
