@@ -32,13 +32,12 @@ final class LoginViewModel: ObservableObject {
                 Storage.standard.saveNewUser(response.user.mapToModel)
 
                 await coordinator.popToRoot()
-                await coordinator.presentFull(.main)
             } else {
                 await coordinator.showError(error: .userAlreadyExists)
             }
         } catch {
             Task { @MainActor in
-                coordinator.showError(error: .userAlreadyExists)
+                coordinator.showError(error: .networkError)
             }
         }
     }

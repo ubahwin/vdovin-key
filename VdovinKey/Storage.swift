@@ -16,12 +16,13 @@ final class Storage {
     static let emailKey = "email"
 
     private let userDefaults = UserDefaults.standard
+    private let secretStorage = SecureStorage.shared
 
     func saveNewSession(password: String, accessToken: String, refreshToken: String, expiresAt: String) {
         userDefaults.set(true, forKey: Storage.isLoginnedKey)
-        userDefaults.set(password, forKey: Storage.passwordKey)
-        userDefaults.set(accessToken, forKey: Storage.accessTokenKey)
-        userDefaults.set(refreshToken, forKey: Storage.refreshTokenKey)
+        secretStorage.updatePassword(password, for: Storage.passwordKey)
+        secretStorage.updatePassword(accessToken, for: Storage.accessTokenKey)
+        secretStorage.updatePassword(refreshToken, for: Storage.refreshTokenKey)
         userDefaults.set(expiresAt, forKey: Storage.expiresAtKey)
     }
 
@@ -48,9 +49,9 @@ final class Storage {
     func clearSession() {
         userDefaults.removeObject(forKey: Storage.isLoginnedKey)
         userDefaults.removeObject(forKey: Storage.usernameKey)
-        userDefaults.removeObject(forKey: Storage.passwordKey)
-        userDefaults.removeObject(forKey: Storage.accessTokenKey)
-        userDefaults.removeObject(forKey: Storage.refreshTokenKey)
+        secretStorage.deletePassword(for: Storage.passwordKey)
+        secretStorage.deletePassword(for: Storage.accessTokenKey)
+        secretStorage.deletePassword(for: Storage.refreshTokenKey)
         userDefaults.removeObject(forKey: Storage.expiresAtKey)
 
         userDefaults.removeObject(forKey: Storage.usernameKey)
@@ -65,7 +66,7 @@ final class Storage {
     }
 
     static var refreshToken: String? {
-        UserDefaults.standard.string(forKey: refreshTokenKey)
+        SecureStorage.shared.getPassword(for: Storage.refreshTokenKey)
     }
 
     static let standard = Storage()

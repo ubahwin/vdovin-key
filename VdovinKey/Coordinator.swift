@@ -21,6 +21,7 @@ enum ErrorAlert: String, Identifiable {
     case userNotFound = "User not found"
     case networkError = "Network error"
     case qrValidateError = "QR code validation error"
+    case sendingCodeError = "Sending QR code error"
 }
 
 final class Coordinator: ObservableObject {

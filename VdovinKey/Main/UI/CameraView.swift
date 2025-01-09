@@ -10,7 +10,11 @@ struct CameraView: View {
             #if targetEnvironment(simulator)
             Color.blue
             #else
-            CodeScannerView(codeTypes: [.qr]) { response in
+            CodeScannerView(
+                codeTypes: [.qr],
+                scanMode: .continuous,
+                shouldVibrateOnSuccess: false
+            ) { response in
                 switch response {
                 case .success(let result):
                     viewModel.scannedCode.send(result.string)

@@ -26,7 +26,6 @@ struct SignUpView: View {
                 HStack {
                     Text("Phone")
                     TextField("980...", text: $viewModel.phone)
-                        .keyboardType(.decimalPad)
                 }
                 HStack {
                     Text("e-mail")

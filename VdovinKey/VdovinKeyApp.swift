@@ -27,39 +27,28 @@ struct VdovinKeyApp: App {
             .onReceive(NotificationCenter.default.publisher(for: UIDevice.deviceDidShakeNotification)) { _ in
                 coordinator.presentFull(.main)
             }
+            .onAppear { checkForLogout() }
+        }
+    }
 
-            // TODO: realize
-            .onAppear {
-                guard
-                    isLoginned,
-                    Storage.tokenIsRotten,
-                    let refreshToken = Storage.refreshToken
-                else {
-                    return
-                }
+    // TODO: Implement me
+    private func checkForLogout() {
+        guard
+            isLoginned,
+            Storage.tokenIsRotten,
+            let refreshToken = Storage.refreshToken
+        else {
+            return
+        }
 
-                Task {
-                    do {
+        Task {
+            do {
 //                        try await NetworkManager.shared.refreshSession(
 //                            refreshToken: refreshToken
 //                        )
-                    } catch {
-                        coordinator.showError(error: .networkError)
-                    }
-                }
+            } catch {
+                coordinator.showError(error: .networkError)
             }
         }
     }
-}
-
-extension UIDevice {
-    static let deviceDidShakeNotification = Notification.Name(rawValue: "deviceDidShakeNotification")
-}
-
-extension UIWindow {
-     open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            NotificationCenter.default.post(name: UIDevice.deviceDidShakeNotification, object: nil)
-        }
-     }
 }
