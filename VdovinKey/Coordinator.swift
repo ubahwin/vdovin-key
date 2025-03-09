@@ -1,4 +1,5 @@
 import SwiftUI
+import LocalAuthentication
 
 enum AppPages: Hashable, Identifiable {
     var id: Int {
@@ -6,6 +7,7 @@ enum AppPages: Hashable, Identifiable {
     }
 
     case start
+    case bimetricPage
     case login
     case signup
     case main
@@ -16,12 +18,12 @@ enum ErrorAlert: String, Identifiable {
         self.rawValue
     }
 
-    case userAlreadyExists = "User already exists"
-    case wrongPassword = "Wrong password"
-    case userNotFound = "User not found"
-    case networkError = "Network error"
-    case qrValidateError = "QR code validation error"
-    case sendingCodeError = "Sending QR code error"
+    case userAlreadyExists = "Такой пользователь уже существует"
+    case wrongPassword = "Неверный пароль"
+    case userNotFound = "Пользователь не найден"
+    case networkError = "Ошибка сети"
+    case qrValidateError = "QR-код не валиден"
+    case sendingCodeError = "Отправка QR-кода не удалась"
 }
 
 final class Coordinator: ObservableObject {
@@ -29,6 +31,8 @@ final class Coordinator: ObservableObject {
     @Published var errorAlert: ErrorAlert?
     @Published var fullScreenCover: AppPages?
     @Published var sheet: AppPages?
+
+    @Published var isUnlocked: Bool = false
 
     @MainActor
     func push(page: AppPages) {
@@ -81,6 +85,8 @@ final class Coordinator: ObservableObject {
             LoginView(viewModel: LoginViewModel(coordinator: self))
         case .main:
             MainView(viewModel: MainViewModel(coordinator: self))
+        case .bimetricPage:
+            BiometricsView(authenticate: authenticate)
         }
     }
 
@@ -89,5 +95,22 @@ final class Coordinator: ObservableObject {
             title: Text("Error"),
             message: Text(error.rawValue)
         )
+    }
+
+    private func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Пожалуйста, подтвердите свою личность."
+
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                if success {
+                    Task { @MainActor [weak self] in
+                        self?.isUnlocked = true
+                    }
+                }
+            }
+        }
     }
 }

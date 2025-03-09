@@ -2,6 +2,8 @@ import Foundation
 
 final class Storage {
     static let isLoginnedKey = "isLoginned"
+    static let isUnlockedKey = "isUnlockedKey"
+
     static let passwordKey = "password"
     static let accessTokenKey = "accessToken"
     static let refreshTokenKey = "refreshToken"

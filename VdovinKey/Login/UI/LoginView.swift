@@ -6,15 +6,15 @@ struct LoginView: View {
     var body: some View {
         Form {
             HStack {
-                Text("Username")
+                Text("Логин")
                 TextField("user", text: $viewModel.username)
             }
             HStack {
-                Text("Password")
+                Text("Пароль")
                 TextField("hardpass", text: $viewModel.password)
             }
         }
-        .navigationTitle("Login")
+        .navigationTitle("Вход")
         .safeAreaInset(edge: .bottom) {
             Button {
                 Task { await viewModel.login() }
@@ -25,7 +25,7 @@ struct LoginView: View {
                         .frame(height: 60)
                         .padding()
 
-                    Text("Login")
+                    Text("Войти")
                         .font(.headline)
                         .foregroundColor(.white)
                 }

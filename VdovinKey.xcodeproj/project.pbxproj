@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		9EF7DA3D2CE150EE009B20BD /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 9EF7DA3C2CE150EE009B20BD /* CodeScanner */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		9E9F8BCA2CE0EBA7004EF2CB /* VdovinKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VdovinKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -40,7 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EF7DA3D2CE150EE009B20BD /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +78,6 @@
 			);
 			name = VdovinKey;
 			packageProductDependencies = (
-				9EF7DA3C2CE150EE009B20BD /* CodeScanner */,
 			);
 			productName = VdovinKey;
 			productReference = 9E9F8BCA2CE0EBA7004EF2CB /* VdovinKey.app */;
@@ -114,7 +108,6 @@
 			mainGroup = 9E9F8BC12CE0EBA7004EF2CB;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9EF7DA3B2CE150EE009B20BD /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9E9F8BCB2CE0EBA7004EF2CB /* Products */;
@@ -356,25 +349,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		9EF7DA3B2CE150EE009B20BD /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.5.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		9EF7DA3C2CE150EE009B20BD /* CodeScanner */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9EF7DA3B2CE150EE009B20BD /* XCRemoteSwiftPackageReference "CodeScanner" */;
-			productName = CodeScanner;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E9F8BC22CE0EBA7004EF2CB /* Project object */;
 }

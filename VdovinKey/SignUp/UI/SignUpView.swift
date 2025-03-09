@@ -6,25 +6,25 @@ struct SignUpView: View {
     var body: some View {
         Form {
             HStack {
-                Text("Username")
+                Text("Логин")
                 TextField("user", text: $viewModel.username)
             }
             HStack {
-                Text("Password")
+                Text("Пароль")
                 TextField("hardpass", text: $viewModel.password)
             }
 
-            Section("other") {
+            Section("Другое") {
                 HStack {
-                    Text("First name")
+                    Text("Имя")
                     TextField("Ivan", text: $viewModel.firstName)
                 }
                 HStack {
-                    Text("Last name")
+                    Text("Фамилия")
                     TextField("Vdovin", text: $viewModel.lastName)
                 }
                 HStack {
-                    Text("Phone")
+                    Text("Телефон")
                     TextField("980...", text: $viewModel.phone)
                 }
                 HStack {
@@ -33,7 +33,7 @@ struct SignUpView: View {
                 }
             }
         }
-        .navigationTitle("Sign Up")
+        .navigationTitle("Регистрация")
         .safeAreaInset(edge: .bottom) {
             Button {
                 Task { await viewModel.register() }
@@ -44,7 +44,7 @@ struct SignUpView: View {
                         .frame(height: 60)
                         .padding()
 
-                    Text("Sign Up")
+                    Text("Зарегистрироваться")
                         .font(.headline)
                         .foregroundColor(.white)
                 }

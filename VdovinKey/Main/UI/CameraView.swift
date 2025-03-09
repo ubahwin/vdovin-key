@@ -1,5 +1,4 @@
 import SwiftUI
-import CodeScanner
 
 struct CameraView: View {
     @EnvironmentObject var coordinator: Coordinator
@@ -7,9 +6,9 @@ struct CameraView: View {
 
     var body: some View {
         ZStack {
-            #if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
             Color.blue
-            #else
+#else
             CodeScannerView(
                 codeTypes: [.qr],
                 scanMode: .continuous,
@@ -22,7 +21,7 @@ struct CameraView: View {
                     coordinator.showError(error: .qrValidateError)
                 }
             }
-            #endif
+#endif
 
             Color.black.opacity(0.6)
                 .mask(
@@ -30,16 +29,22 @@ struct CameraView: View {
                         Rectangle()
                             .fill(Color.white)
 
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 16)
                             .frame(width: 240, height: 240)
                             .blendMode(.destinationOut)
                     }
                 )
         }
+        .mask(RoundedCorner(radius: 32, corners: [.topLeft, .topRight]))
     }
 }
 
 #Preview {
     CameraView(viewModel: MainViewModel(coordinator: .init()))
+        .environmentObject(Coordinator())
+}
+
+#Preview {
+    MainView(viewModel: MainViewModel(coordinator: Coordinator()))
         .environmentObject(Coordinator())
 }

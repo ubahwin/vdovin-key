@@ -6,24 +6,24 @@ struct AccountView: View {
 
     var body: some View {
         List {
-            Section("Info") {
+            Section("Данные о пользователе") {
                 HStack {
-                    Text("Username")
+                    Text("Логин")
                     Spacer()
                     Text(viewModel.user.username)
                 }
                 HStack {
-                    Text("First name")
+                    Text("Имя")
                     Spacer()
                     Text(viewModel.user.firstName)
                 }
                 HStack {
-                    Text("Last name")
+                    Text("Фамилия")
                     Spacer()
                     Text(viewModel.user.lastName)
                 }
                 HStack {
-                    Text("Phone")
+                    Text("Телефон")
                     Spacer()
                     Text(viewModel.user.phone)
                 }
@@ -32,9 +32,6 @@ struct AccountView: View {
                     Spacer()
                     Text(viewModel.user.email)
                 }
-            }
-
-            Section("Actions") {
                 HStack {
                     Spacer()
                     Button {
@@ -42,7 +39,7 @@ struct AccountView: View {
                         coordinator.dismissCover()
                     } label: {
                         ZStack {
-                            Text("Logout")
+                            Text("Выйти")
                                 .foregroundStyle(.red)
                         }
                     }
@@ -50,10 +47,11 @@ struct AccountView: View {
                 }
             }
         }
+        .scrollDisabled(true)
     }
 }
-//
-//#Preview {
-//    AccountView(viewModel: MainViewModel(coordinator: .init()))
-//        .environmentObject(Coordinator())
-//}
+
+#Preview {
+    AccountView(viewModel: MainViewModel(coordinator: .init()))
+        .environmentObject(Coordinator())
+}

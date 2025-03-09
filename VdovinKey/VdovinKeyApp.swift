@@ -5,10 +5,22 @@ struct VdovinKeyApp: App {
     @StateObject private var coordinator = Coordinator()
     @AppStorage(Storage.isLoginnedKey) var isLoginned: Bool = false
 
+    private var launchedPage: AppPages {
+        guard isLoginned else {
+            return .start
+        }
+
+        guard coordinator.isUnlocked else {
+            return .bimetricPage
+        }
+
+        return .main
+    }
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $coordinator.path) {
-                coordinator.build(page: isLoginned ? .main : .start)
+                coordinator.build(page: launchedPage)
                     .navigationDestination(for: AppPages.self) { page in
                         coordinator.build(page: page)
                     }
@@ -27,7 +39,9 @@ struct VdovinKeyApp: App {
             .onReceive(NotificationCenter.default.publisher(for: UIDevice.deviceDidShakeNotification)) { _ in
                 coordinator.presentFull(.main)
             }
-            .onAppear { checkForLogout() }
+            .onAppear {
+                checkForLogout()
+            }
         }
     }
 

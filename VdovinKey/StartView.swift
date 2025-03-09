@@ -23,7 +23,7 @@ struct StartView: View {
                         .frame(height: 60)
                         .padding(.horizontal)
 
-                    Text("Login")
+                    Text("Войти")
                         .font(.headline)
                         .foregroundColor(.white)
                 }
@@ -39,7 +39,7 @@ struct StartView: View {
                         .frame(height: 60)
                         .padding()
 
-                    Text("Sign Up")
+                    Text("Регистрация")
                         .font(.headline)
                         .foregroundColor(.black)
                 }
